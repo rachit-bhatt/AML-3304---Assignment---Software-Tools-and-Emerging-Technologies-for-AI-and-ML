@@ -19,6 +19,23 @@ if SLACK_SIGNING_SECRET is None or SLACK_BOT_TOKEN is None:
 # Bot Class Definition
 class SlackBot:
     def __init__(self, bot_token, signing_secret, channel_id):
+        """
+        The function initializes a Flask app, SlackEventAdapter, and Slack Bolt App with specified
+        parameters.
+        
+        :param bot_token: The `bot_token` parameter is a unique token that identifies your Slack bot and
+        allows it to authenticate and interact with the Slack API on behalf of your app. This token is
+        necessary for your bot to send messages, listen for events, and perform other actions within a
+        Slack workspace
+        :param signing_secret: The `signing_secret` is a unique secret value provided by Slack when
+        setting up a Slack app. It is used to verify the authenticity of incoming events and requests
+        from Slack to your app. This helps ensure that the events are indeed coming from Slack and not
+        from a malicious source
+        :param channel_id: The `channel_id` parameter in the `__init__` method is used to store the ID
+        of the Slack channel where the bot will be interacting. This ID is typically a unique identifier
+        for a specific channel within a Slack workspace. It allows the bot to target specific channels
+        for sending messages, listening
+        """
         # Initialize the Flask app
         self.app = Flask(__name__)
 
