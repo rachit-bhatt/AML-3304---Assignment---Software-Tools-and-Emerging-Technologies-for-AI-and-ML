@@ -19,6 +19,9 @@ if SLACK_SIGNING_SECRET is None or SLACK_BOT_TOKEN is None:
 # Bot Class Definition
 class SlackBot:
     def __init__(self, bot_token, signing_secret, channel_id):
+        '''
+        This is an init function.
+        '''
         # Initialize the Flask app
         self.app = Flask(__name__)
 
