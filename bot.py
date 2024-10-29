@@ -58,6 +58,10 @@ class SlackBot:
         def handle_message(event_data):
             """Handle incoming messages"""
             message = event_data['event']
+
+            #debug
+            print(message)
+
             if 'subtype' not in message:  # Avoid bot messages or special events
                 channel = message['channel']
                 user_message = message['text']
@@ -104,7 +108,9 @@ class SlackBot:
 
     def run(self, port=3000):
         """Method to run the Flask app"""
+
         self.app.run(port=port)
+
 
 # Main Function to Start the Bot
 if __name__ == "__main__":
