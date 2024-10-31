@@ -51,6 +51,9 @@ class SlackBot:
         self.register_events()
         self.add_routes()
 
+        # Get BOT Authentication ID.
+        self.SLACK_BOT_AUTH_ID = self.slack_app.client.api_call('auth.test')['user_id']
+
     def register_events(self):
         """Method to register Slack event handlers"""
 
@@ -59,15 +62,16 @@ class SlackBot:
             """Handle incoming messages"""
             message = event_data['event']
 
-            #debug
-            print(message)
-
             if 'subtype' not in message:  # Avoid bot messages or special events
                 channel = message['channel']
                 user_message = message['text']
-                
-                # Echo the message back to the channel
-                self.slack_app.client.chat_postMessage(channel=channel, text=f"Echo: {user_message}")
+                user_id = message.get('user')
+
+                # Only if the user contains a question mark.
+                if user_message.__contains__('?'):
+                    if self.SLACK_BOT_AUTH_ID != user_id: # Only when someone has sent a message which does not include the bot.
+                        # Echo the message back to the channel
+                        self.slack_app.client.chat_postMessage(channel = channel, text = f'{ user_message }')
 
     def add_routes(self):
         """Add routes for the UI and message handling"""
@@ -80,6 +84,7 @@ class SlackBot:
         @self.app.route("/send_message", methods=["POST"])
         def send_message():
             """Send a message to the Slack channel"""
+
             data = request.get_json()
             message = data.get('text')
             
