@@ -111,10 +111,10 @@ class SlackBot:
                 })
             return jsonify({"messages": messages})
 
-    def run(self, port=3000):
+    def run(self, port = 3000):
         """Method to run the Flask app"""
 
-        self.app.run(port=port)
+        self.app.run(port = port, debug = True)
 
 
 # Main Function to Start the Bot
